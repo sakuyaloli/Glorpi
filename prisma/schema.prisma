@@ -1,0 +1,117 @@
+// Glorpi Prompt Studio - Database Schema
+// Uses Neon Postgres on Vercel
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ==========================================
+// User - identified by cookie-based UUID
+// ==========================================
+model User {
+  id         String   @id @default(uuid())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  lastSeenAt DateTime @default(now())
+
+  settings     UserSettings?
+  prompts      Prompt[]
+  providerKeys ProviderKey[]
+
+  @@map("users")
+}
+
+// ==========================================
+// User Settings - preferences and defaults
+// ==========================================
+model UserSettings {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Default provider/model selection
+  defaultProvider Provider @default(anthropic)
+  defaultModel    String   @default("claude-sonnet-4-20250514")
+
+  // Output settings
+  outputLengthPreset  OutputLengthPreset @default(standard)
+  outputTokenEstimate Int                @default(512)
+
+  // Flexible JSON for additional preferences
+  preferences Json @default("{}")
+
+  @@map("user_settings")
+}
+
+// ==========================================
+// Prompt - saved prompts with blocks
+// ==========================================
+model Prompt {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  title          String
+  blocks         Json // Array of PromptBlock objects
+  compiledPrompt String? // Optional cached compiled prompt
+
+  // Usage tracking
+  lastUsedAt DateTime?
+  useCount   Int       @default(0)
+
+  @@index([userId])
+  @@index([userId, updatedAt])
+  @@map("prompts")
+}
+
+// ==========================================
+// Provider Key - encrypted API keys (BYOK)
+// ==========================================
+model ProviderKey {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  provider Provider
+  label    String? // Optional label for multiple keys per provider
+
+  // Encryption fields (AES-256-GCM)
+  ciphertext Bytes
+  iv         Bytes
+  tag        Bytes
+  last4      String? // Last 4 chars of key for display hint
+
+  // One key per provider per user (unless labeled)
+  @@unique([userId, provider, label])
+  @@index([userId])
+  @@map("provider_keys")
+}
+
+// ==========================================
+// Enums
+// ==========================================
+enum Provider {
+  openai
+  anthropic
+  gemini
+  deepseek
+  openai_compatible
+}
+
+enum OutputLengthPreset {
+  concise
+  standard
+  verbose
+}

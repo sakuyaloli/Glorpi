@@ -1,0 +1,33 @@
+{
+	"Version": 3,
+	"FileReferences": {
+		"Moc": "glorpi_cat.moc3",
+		"Textures": [
+			"glorpi_cat.2048/texture_00.png",
+			"glorpi_cat.2048/texture_01.png"
+		],
+		"Physics": "glorpi_cat.physics3.json",
+		"DisplayInfo": "glorpi_cat.cdi3.json",
+		"Expressions": [
+			{"Name": "question", "File": "question.exp3.json"},
+			{"Name": "cry", "File": "cry.exp3.json"},
+			{"Name": "eye_glow", "File": "eye_glow.exp3.json"},
+			{"Name": "fluff", "File": "fluff.exp3.json"}
+		]
+	},
+	"Groups": [
+		{
+			"Target": "Parameter",
+			"Name": "EyeBlink",
+			"Ids": [
+				"ParamEyeLOpen",
+				"ParamEyeROpen"
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Name": "LipSync",
+			"Ids": []
+		}
+	]
+}

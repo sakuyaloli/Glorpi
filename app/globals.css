@@ -1,0 +1,457 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* ========================================
+       GLORPI DESIGN SYSTEM - Minimal Dark Theme
+       Brand Green: #98d7a1
+       ======================================== */
+    
+    /* Brand colors */
+    --glorpi: #98d7a1;
+    --glorpi-hover: #7bc98a;
+    --glorpi-soft: rgba(152, 215, 161, 0.15);
+    --glorpi-glow: rgba(152, 215, 161, 0.25);
+    
+    /* Surfaces */
+    --bg0: #0c0e11;
+    --bg1: #12151a;
+    --bg2: #1a1e24;
+    --bg3: #22272e;
+    --stroke: rgba(255, 255, 255, 0.08);
+    --stroke-soft: rgba(255, 255, 255, 0.05);
+    
+    /* Text */
+    --text: #e8eaed;
+    --text-secondary: #9ca3af;
+    --muted: #6b7280;
+    
+    /* Shadows - soft, not harsh */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.35);
+    --shadow-glow: 0 0 24px rgba(152, 215, 161, 0.2);
+    
+    /* Focus */
+    --ring: color-mix(in srgb, var(--glorpi) 40%, transparent);
+    
+    /* Legacy shadcn vars - mapped to new system */
+    --background: 220 15% 6%;
+    --foreground: 210 10% 90%;
+    --card: 220 15% 10%;
+    --card-foreground: 210 10% 90%;
+    --popover: 220 15% 10%;
+    --popover-foreground: 210 10% 90%;
+    --primary: 140 45% 72%;
+    --primary-foreground: 220 15% 6%;
+    --secondary: 220 12% 15%;
+    --secondary-foreground: 210 10% 90%;
+    --muted: 220 12% 15%;
+    --muted-foreground: 215 10% 50%;
+    --accent: 32 80% 65%;
+    --accent-foreground: 220 15% 6%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 12% 16%;
+    --input: 220 12% 16%;
+    --ring: 140 45% 72%;
+    --radius: 0.625rem;
+  }
+
+  html {
+    color-scheme: dark;
+    background-color: var(--bg0);
+  }
+
+  body {
+    background-color: var(--bg0);
+    color: var(--text);
+    font-family: var(--font-ui), ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  * {
+    border-color: var(--stroke);
+  }
+}
+
+@layer components {
+  /* Surface - base panel/card component */
+  .surface {
+    background-color: var(--bg1);
+    border: 1px solid var(--stroke);
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .surface-raised {
+    background-color: var(--bg2);
+    border: 1px solid var(--stroke);
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-md);
+  }
+  
+  .surface-inset {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 0.5rem;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Glow Button - primary CTA */
+  .glow-btn {
+    @apply relative px-6 py-3 rounded-xl font-medium transition-all duration-200;
+    background-color: var(--glorpi);
+    color: var(--bg0);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .glow-btn:hover {
+    background-color: var(--glorpi-hover);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md), var(--shadow-glow);
+  }
+  
+  .glow-btn:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* Quiet Icon Button - header icons */
+  .quiet-icon-btn {
+    @apply p-2 rounded-lg transition-all duration-150;
+    color: var(--muted);
+  }
+  
+  .quiet-icon-btn:hover {
+    color: var(--glorpi);
+    background-color: var(--glorpi-soft);
+  }
+
+  /* Focus ring */
+  .focus-ring {
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg0)];
+    --tw-ring-color: var(--ring);
+  }
+
+  /* Scrollbar - minimal */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(152, 215, 161, 0.2) transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: rgba(152, 215, 161, 0.2);
+    border-radius: 3px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: rgba(152, 215, 161, 0.35);
+  }
+  
+  /* Panel variants for legacy support */
+  .panel {
+    @apply surface;
+  }
+  
+  .panel-elevated {
+    @apply surface-raised;
+  }
+  
+  .panel-inset {
+    @apply surface-inset;
+  }
+  
+  /* Glass effect - subtle */
+  .glass {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--stroke);
+  }
+  
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--stroke);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+/* Global scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(152, 215, 161, 0.15);
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(152, 215, 161, 0.25);
+  background-clip: padding-box;
+}
+
+/* Typography utilities */
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Hide scrollbar but keep functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Subtle shimmer animation */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(152, 215, 161, 0.02) 25%,
+    rgba(152, 215, 161, 0.06) 50%,
+    rgba(152, 215, 161, 0.02) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+}
+
+/* Prose customization */
+.prose pre {
+  background: var(--bg2);
+  border: 1px solid var(--stroke);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.prose code {
+  color: var(--glorpi);
+  background: var(--glorpi-soft);
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+}
+
+.prose code::before,
+.prose code::after {
+  content: none;
+}
+
+/* Prevent FOUC */
+html {
+  background: #0c0e11 !important;
+}
+
+/* Glow orb animation for home page */
+@keyframes orb-drift {
+  0%, 100% { 
+    transform: translate(0, 0) scale(1);
+    opacity: 0.4;
+  }
+  25% { 
+    transform: translate(10px, -5px) scale(1.02);
+    opacity: 0.5;
+  }
+  50% { 
+    transform: translate(-5px, 10px) scale(0.98);
+    opacity: 0.35;
+  }
+  75% { 
+    transform: translate(-10px, -10px) scale(1.01);
+    opacity: 0.45;
+  }
+}
+
+.orb-drift {
+  animation: orb-drift 8s ease-in-out infinite;
+}
+
+/* Breathing animation for CTA hover */
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+.animate-breathe {
+  animation: breathe 2s ease-in-out infinite;
+}
+
+/* ========================================
+   DOCS PAGE STYLES
+   ======================================== */
+
+.docs-nav-surface {
+  background: linear-gradient(145deg, rgba(18, 21, 26, 0.9), rgba(12, 14, 17, 0.95));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.docs-accordion-item {
+  background: linear-gradient(145deg, rgba(18, 21, 26, 0.95), rgba(14, 17, 21, 0.98));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25), 0 0 1px rgba(255, 255, 255, 0.05);
+  transition: all 0.2s ease;
+}
+
+.docs-accordion-item:hover {
+  border-color: rgba(152, 215, 161, 0.15);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3), 0 0 12px rgba(152, 215, 161, 0.05);
+  transform: translateY(-1px);
+}
+
+.docs-accordion-item[data-state="open"] {
+  background: linear-gradient(145deg, rgba(22, 26, 32, 0.98), rgba(16, 19, 24, 1));
+  border-color: rgba(152, 215, 161, 0.12);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.docs-accordion-trigger {
+  transition: background-color 0.2s ease;
+}
+
+.docs-accordion-trigger:hover {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.docs-accordion-trigger[data-state="open"] {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.docs-icon-badge {
+  background: rgba(152, 215, 161, 0.1);
+  border: 1px solid rgba(152, 215, 161, 0.15);
+  transition: all 0.2s ease;
+}
+
+.docs-accordion-item:hover .docs-icon-badge {
+  background: rgba(152, 215, 161, 0.15);
+  border-color: rgba(152, 215, 161, 0.2);
+}
+
+/* Accordion content wrapper - animation handled by Radix */
+.docs-accordion-content {
+  /* Let Radix handle the height animation */
+}
+
+/* The expanded content panel - premium styling */
+.docs-content-panel {
+  position: relative;
+  margin: 0 16px 16px 16px;
+  padding: 20px 24px;
+  border-radius: 12px;
+  
+  /* Subtle vertical gradient background */
+  background: linear-gradient(
+    180deg,
+    rgba(18, 21, 26, 0.6) 0%,
+    rgba(14, 17, 21, 0.8) 100%
+  );
+  
+  /* Border with subtle green tint */
+  border: 1px solid rgba(152, 215, 161, 0.1);
+  
+  /* Inner highlight + ambient shadow */
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 2px 8px rgba(0, 0, 0, 0.15);
+  
+  /* Fade + slide animation */
+  animation: docs-content-enter 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* Top divider with faint glow */
+.docs-content-panel::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 20px;
+  right: 20px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(152, 215, 161, 0.15) 30%,
+    rgba(152, 215, 161, 0.2) 50%,
+    rgba(152, 215, 161, 0.15) 70%,
+    transparent 100%
+  );
+  border-radius: 1px;
+}
+
+/* Typography inside the content panel */
+.docs-content-text {
+  font-size: 14px;
+  line-height: 1.85;
+  color: #b8bcc4; /* Slightly brighter than ink-graphite */
+  white-space: pre-wrap;
+  padding-left: 48px; /* Align with header text */
+}
+
+/* Better spacing for bullet lists */
+.docs-content-text {
+  /* Bullet points are rendered via whitespace-pre-wrap, so we style via line-height */
+}
+
+/* Animation keyframes */
+@keyframes docs-content-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========================================
+   SETTINGS PAGE STYLES
+   ======================================== */
+
+.settings-card {
+  background: linear-gradient(145deg, rgba(18, 21, 26, 0.95), rgba(14, 17, 21, 0.98));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3), 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.settings-info-panel {
+  background: linear-gradient(145deg, rgba(152, 215, 161, 0.05), rgba(152, 215, 161, 0.02));
+  border: 1px solid rgba(152, 215, 161, 0.12);
+  border-radius: 0.875rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+}
+
+.settings-included-panel {
+  background: linear-gradient(145deg, rgba(152, 215, 161, 0.08), rgba(152, 215, 161, 0.03));
+  border: 1px solid rgba(152, 215, 161, 0.15);
+  border-radius: 0.875rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2), 0 0 8px rgba(152, 215, 161, 0.05);
+}
