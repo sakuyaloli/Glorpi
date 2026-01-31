@@ -95,7 +95,7 @@ export function Navigation() {
           <div className="hidden md:flex items-center gap-2">
             {/* Social icons */}
             <a
-              href="https://github.com/glorpi/prompt-studio"
+              href="https://github.com/sakuyaloli/Glorpi"
               target="_blank"
               rel="noopener noreferrer"
               className="quiet-icon-btn"
@@ -104,7 +104,7 @@ export function Navigation() {
               <Github className="w-[18px] h-[18px]" />
             </a>
             <a
-              href="https://x.com/glorpi"
+              href="https://x.com/glorpistudio"
               target="_blank"
               rel="noopener noreferrer"
               className="quiet-icon-btn"
@@ -178,7 +178,7 @@ export function Navigation() {
             {/* Mobile social links */}
             <div className="flex items-center gap-3 px-3 pt-3 mt-2 border-t border-white/10">
               <a
-                href="https://github.com/glorpi/prompt-studio"
+                href="https://github.com/sakuyaloli/Glorpi"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="quiet-icon-btn"
@@ -186,7 +186,7 @@ export function Navigation() {
                 <Github className="w-5 h-5" />
               </a>
               <a
-                href="https://x.com/glorpi"
+                href="https://x.com/glorpistudio"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="quiet-icon-btn"
